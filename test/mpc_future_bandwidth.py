@@ -1,5 +1,5 @@
 import numpy as np
-import fixed_env2 as env
+import fixed_env_future_bandwidth as env
 import load_trace
 import matplotlib.pyplot as plt
 import itertools
@@ -23,7 +23,7 @@ DEFAULT_QUALITY = 1  # default video quality without agent
 RANDOM_SEED = 42
 RAND_RANGE = 1000000
 SUMMARY_DIR = './results'
-LOG_FILE = './results/log_sim_future7_mpc'
+LOG_FILE = './results/log_sim_Rmpc'
 # log in format of time_stamp bit_rate buffer_size rebuffer_time chunk_size download_time reward
 # NN_MODEL = './models/nn_model_ep_5900.ckpt'
 
@@ -61,7 +61,7 @@ def main():
                               all_cooked_bw=all_cooked_bw)
 
     log_path = LOG_FILE + '_' + all_file_names[net_env.trace_idx]
-    log_file = open(log_path, 'wb')
+    log_file = open(log_path, 'w')
 
     time_stamp = 0
 
@@ -86,7 +86,7 @@ def main():
         # the action is from the last decision
         # this is to make the framework similar to the real
         delay, sleep_time, buffer_size, rebuf, \
-        video_chunk_size, \
+        video_chunk_size,\
         end_of_video, video_chunk_remain = \
             net_env.get_video_chunk(bit_rate)
 
@@ -264,14 +264,14 @@ def main():
             a_batch.append(action_vec)
             entropy_record = []
 
-            print "video count", video_count
+            print("video count", video_count)
             video_count += 1
 
             if video_count >= len(all_file_names):
                 break
 
             log_path = LOG_FILE + '_' + all_file_names[net_env.trace_idx]
-            log_file = open(log_path, 'wb')
+            log_file = open(log_path, 'w')
 
 
 if __name__ == '__main__':

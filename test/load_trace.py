@@ -1,7 +1,7 @@
 import os
 
 
-COOKED_TRACE_FOLDER = './cooked_traces/'
+COOKED_TRACE_FOLDER = './cooked_traces/NG_fixed_sim/'
 
 
 def load_trace(cooked_trace_folder=COOKED_TRACE_FOLDER):

@@ -1,9 +1,9 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+# plt.rcParams.update({'font.size': 14})
 
-
-RESULTS_FOLDER = './results/'
+RESULTS_FOLDER = './results/traces_middle/'
 NUM_BINS = 100
 BITS_IN_BYTE = 8.0
 MILLISEC_IN_SEC = 1000.0
@@ -16,7 +16,7 @@ SMOOTH_P = 1
 COLOR_MAP = plt.cm.jet #nipy_spectral, Set1,Paired 
 SIM_DP = 'sim_dp'
 #SCHEMES = ['BB', 'RB', 'FIXED', 'FESTIVE', 'BOLA', 'RL',  'sim_rl', SIM_DP]
-SCHEMES = ['sim_rl', SIM_DP]
+SCHEMES = ['sim_rl', 'sim_bb', 'sim_mpc']
 
 def main():
 	time_all = {}
@@ -41,9 +41,9 @@ def main():
 		bw = []
 		reward = []
 
-		print log_file
+		print(log_file)
 
-		with open(RESULTS_FOLDER + log_file, 'rb') as f:
+		with open(RESULTS_FOLDER + log_file, 'r') as f:
 			if SIM_DP in log_file:
 				last_t = 0
 				last_b = 0
@@ -130,8 +130,10 @@ def main():
 				reward_all[scheme].append(np.sum(raw_reward_all[scheme][l][1:VIDEO_LEN]))
 
 	mean_rewards = {}
+	error_bar = {}
 	for scheme in SCHEMES:
 		mean_rewards[scheme] = np.mean(reward_all[scheme])
+		error_bar[scheme] = np.var(reward_all[scheme])
 
 	fig = plt.figure()
 	ax = fig.add_subplot(111)
@@ -141,16 +143,17 @@ def main():
 	
 	SCHEMES_REW = []
 	for scheme in SCHEMES:
-		SCHEMES_REW.append(scheme + ': ' + str(mean_rewards[scheme]))
+		SCHEMES_REW.append(scheme + ': ' + str(mean_rewards[scheme]) + '% ' + str(error_bar[scheme]))
 
 	colors = [COLOR_MAP(i) for i in np.linspace(0, 1, len(ax.lines))]
 	for i,j in enumerate(ax.lines):
 		j.set_color(colors[i])
 
-	ax.legend(SCHEMES_REW, loc=4)
+	ax.legend(SCHEMES_REW, loc=3)
 	
 	plt.ylabel('total reward')
 	plt.xlabel('trace index')
+	plt.title('Reward for LTE')
 	plt.show()
 
 	# ---- ---- ---- ----
@@ -169,17 +172,18 @@ def main():
 	for i,j in enumerate(ax.lines):
 		j.set_color(colors[i])	
 
-	ax.legend(SCHEMES_REW, loc=4)
+	ax.legend(SCHEMES_REW, loc=2)
 	
 	plt.ylabel('CDF')
 	plt.xlabel('total reward')
+	plt.title('CDF for LTE')
 	plt.show()
 
 
 	# ---- ---- ---- ----
 	# check each trace
 	# ---- ---- ---- ----
-
+	'''
 	for l in time_all[SCHEMES[0]]:
 		schemes_check = True
 		for scheme in SCHEMES:
@@ -221,6 +225,7 @@ def main():
 
 			ax.legend(SCHEMES_REW, loc=9, bbox_to_anchor=(0.5, -0.1), ncol=int(np.ceil(len(SCHEMES) / 2.0)))
 			plt.show()
+	'''
 
 
 if __name__ == '__main__':
