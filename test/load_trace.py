@@ -1,7 +1,7 @@
 import os
 
 
-COOKED_TRACE_FOLDER = './cooked_traces/NG_fixed_sim/'
+COOKED_TRACE_FOLDER = './cooked_traces/puffer-traces-201908-for-pensieve/puffer-030/'
 
 
 def load_trace(cooked_trace_folder=COOKED_TRACE_FOLDER):

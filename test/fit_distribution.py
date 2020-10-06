@@ -6,7 +6,7 @@ import tensorflow as tf
 import tensorflow_probability as tfp
 import seaborn as sns
 sns.set()
-COOKED_TRACE_FOLDER = './mahimahi_traces/NG_fixed_20/'
+COOKED_TRACE_FOLDER = './cooked_traces/Pensieve_train/'
 
 def kl_divergence(p, q):
     return np.sum(np.where(p != 0, p * np.log(p / q), 0))
@@ -62,15 +62,20 @@ def main():
     # print(kld)
 
     # x = np.linspace(-100000, 20000000, 100000000)
-    # LTE: gamma, Parameters for the best fit: (1.006031842637728, -0.024452183805613266, 415840.02118790004)
-    # 3G: gamma, Parameters for the best fit: (1123.1594741497684, -8732433.687507316, 8236.689775775005)
-    # Pensieve: gamma, Parameters for the best fit: (34699.80269295926, -17049718.304862432, 495.9379781808127)
-    # NG_low: gamma, Parameters for the best fit: (268966.9337305024, -447356334.7991879, 1668.8199288599267)
-    # NG_high: gamma, Parameters for the best fit: (30309.77824643263, -149405581.62948757, 4978.59415741171)
-    # NG_middle: gamma, Parameters for the best fit: (683063.6000044076, -713098470.137234, 1046.164664936136)
-    # NG_middle: beta, (1.012356958067902, 1.0035547501693838, -6.098050997040092, 2999579.9628792526)
-    # NG_low: beta, (1.04217286591102, 1.0284725392799454, -15539.235027695817, 3015040.3601162564)
-    # NG_fixed: gamma,  (6.4497123321677226, -885912.873406837, 346361.3846503063)
+    '''
+    LTE: gamma, Parameters for the best fit: (1.006031842637728, -0.024452183805613266, 415840.02118790004)
+    3G: gamma, Parameters for the best fit: (1123.1594741497684, -8732433.687507316, 8236.689775775005)
+    Pensieve: gamma, Parameters for the best fit: (34699.80269295926, -17049718.304862432, 495.9379781808127)
+    NG_low: gamma, Parameters for the best fit: (268966.9337305024, -447356334.7991879, 1668.8199288599267)
+    NG_high: gamma, Parameters for the best fit: (30309.77824643263, -149405581.62948757, 4978.59415741171)
+    NG_middle: gamma, Parameters for the best fit: (683063.6000044076, -713098470.137234, 1046.164664936136)
+    NG_middle: beta, (1.012356958067902, 1.0035547501693838, -6.098050997040092, 2999579.9628792526)
+    NG_low: beta, (1.04217286591102, 1.0284725392799454, -15539.235027695817, 3015040.3601162564)
+    NG_fixed: gamma,  (6.4497123321677226, -885912.873406837, 346361.3846503063)
+    Puffer_010: gamma, (4815.743643863569, -6140600.16712888, 1307.9595610073561) ### 3492 [RL>mpc2]
+    Puffer_020: gamma, (1245.033010703498, -3064936.3144942736, 2586.816451294939) ### 3313 [RL<mpc3]
+    Piffer_030: gamma,  (2116.961039968656, -4022746.5810478507, 1977.3455073286118) ### 3584 [RL<mpc1]
+    '''
 
 
     # y1 = st.gamma.pdf(x, a=1.006, scale=418540)

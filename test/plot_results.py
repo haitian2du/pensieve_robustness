@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 # plt.rcParams.update({'font.size': 14})
 
-RESULTS_FOLDER = './results/traces_middle/'
+RESULTS_FOLDER = './results/puffer-3/'
 NUM_BINS = 100
 BITS_IN_BYTE = 8.0
 MILLISEC_IN_SEC = 1000.0
